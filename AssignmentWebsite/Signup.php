@@ -1,0 +1,150 @@
+<?php
+session_start()
+?>
+<html>
+<head>
+	<title>Assignment Website</title>
+	<?php
+		include("BootstrapFile.php");
+	?>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-primary navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Details</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#My">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="My">
+	    <ul class="navbar-nav">
+	    	&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+	    	&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+	    	&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+	      <li class="nav-item" style="color:white;font-weight: bold;">7007976332</li>&nbsp &nbsp &nbsp
+	      <li class="nav-item" style="color:white;font-weight: bold;">8604939407</li>&nbsp &nbsp &nbsp
+	      <li class="nav-item" style="color:white;font-weight: bold;">anshusharma1298@gmail.com</li>&nbsp &nbsp &nbsp
+    	</ul>
+	</div>
+</nav>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+	<a class="navbar-brand"  href="index.php"><img src="Images\Logo.png" width="50px" height="30px"></a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#MyNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="MyNavbar">
+		<ul class="navbar-nav">
+			<li class="nav-item ">
+				<a class="nav-link" href="index.php" style="color:white;font-weight: bold;">Home</a>
+			</li>
+
+		     <li class="nav-item active ">
+				<a class="nav-link" href="Signup.php" style="color:white;font-weight: bold;">SignIn/SignUp</a>
+			</li>
+
+            <li class="nav-item">
+				<a class="nav-link" href="Services.php" style="color:white;font-weight: bold;">Services</a>
+			</li>
+	        <li class="nav-item">
+				<a class="nav-link" href="Upload.php" style="color:white;font-weight: bold;">Upload</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link " href="contactus.php" style="color:white;font-weight: bold;">Contact US</a>
+			</li>
+			
+			
+		</ul>
+	</div>
+</nav>
+<hr>
+ <br/>
+<div class="container col-sm-6 ">
+	<center><h1 style="color:black;">Sign Up</h1>
+	<hr>
+	<p></p>
+	</center>
+	<form method="post" enctype="multipart/form-data">
+		<input type="text" name="name" class="form-control" placeholder="Full Name..."required><br/>
+		<input type="email" name="email" class="form-control" placeholder="Email..."required><br/>
+		<input type="password" name="pass" class="form-control" placeholder="Password..."required><br/>
+		<br><br>
+		<input type="submit" name="submit" class="btn btn-primary col-sm-12" value="Submit"><br/>
+		<a href="login.php">Sign In</a>
+	</form>
+</div>
+<div class="content">
+</div>
+    <footer id="myFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 myCols">
+                    <h5>Get started</h5>
+                    <ul>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="contactus.php">Contact Us</a></li>
+                        <li><a href="Upload.php">Upload</a></li>
+						<li><a href="Services.php">Services</a></li>
+                        <li ><a href="login.php">Login</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 myCols">
+                    <h5>We Work for You</h5>
+                    <ul>
+                        <li><img src="Images\img21.jpg" height="150px" width="100%" class="rounded" class="responsive"></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 myCols">
+                    <h5>Always ready to do Your work</h5>
+                    <ul>
+                        <li><img src="Images\img19.png" height="170px" width="100%" class="rounded" class="responsive"></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 myCols">
+                    <h5>Give Our Best to make you feel proud</h5>
+                    <ul>
+                        <li><img src="Images\img20.jpg" height="200px" width="300px" class="rounded" class="responsive"></li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="social-networks">
+            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
+            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2019 assignment4you@gmail.com </p>
+        </div>
+    </footer>
+ 
+ 
+</body>
+
+</body>
+</html>
+<?php
+if(isset($_POST['submit']))
+{
+	extract($_POST);
+	$con = mysqli_connect("localhost","root","","assignment");
+	$sqlquery = "SELECT 1 FROM signup WHERE email = '$email'";
+	$select_result = mysqli_query($con,$sqlquery);
+	if(mysqli_num_rows($select_result)>0)
+	{
+	echo "<script>alert('Email is already Exists')</script>";
+	}
+	else
+	{
+		$ins = mysqli_query($con,"INSERT INTO `signup`(`Name`, `Email`, `Password`, `User_role`) VALUES ('$name','$email','$pass','customer')");
+		if($ins == true)
+		{
+			echo "<script>alert('Sign Up  Successfully!')</script>";
+			echo "<script>window.location='login.php'</script>";
+		}
+		else
+		{
+			echo "<script>alert('Problem in Sign Up')</script>";
+		}	
+	}
+}
+?>
